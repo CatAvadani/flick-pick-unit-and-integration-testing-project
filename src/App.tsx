@@ -1,17 +1,75 @@
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import MovieCard from './components/MovieCard';
+import { getSearchResults, getTrending } from './data/apiRequest';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [searchString, setSearchString] = useState('');
+
+  const trendingQuery = useQuery({
+    queryKey: ['trending'],
+    queryFn: () => getTrending(),
+    enabled: !searchString,
+  });
+
+  const searchQuery = useQuery({
+    queryKey: ['search', searchString],
+    queryFn: () => getSearchResults(searchString),
+    enabled: !!searchString,
+  });
 
   return (
-    <div className=' flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-blue-500 to-violet-800'>
-      <button
-        className=' bg-yellow-600 px-4 py-2 rounded-lg'
-        onClick={() => setCount((count) => count + 1)}
+    <body className=' min-h-screen flex  flex-col items-center justify-center p-8 bg-gradient-to-br from-blue-500 to-violet-800'>
+      <h1 className='text-7xl font-black text-white/50 tracking-widest mb-10 '>
+        FLicK PicK
+      </h1>
+      <form
+        className='flex items-center justify-center w-full max-w-sm mx-auto mt-4 mb-8'
+        onSubmit={(e) => {
+          e.preventDefault();
+          searchQuery.refetch();
+        }}
       >
-        count is {count}
-      </button>
-    </div>
+        <input
+          placeholder='Search for a movie, tv show, person....'
+          className=' w-full px-4 py-2 bg-gray-100 rounded-l-full shadow-md'
+          value={searchString}
+          onChange={(e) => setSearchString(e.target.value)}
+        />
+
+        <button
+          className='px-4 py-2 text-white bg-yellow-500 rounded-r-full shadow-md '
+          type='submit'
+        >
+          Search
+        </button>
+      </form>
+      <h2 className='text-2xl font-bold text-purple-100 mb-8'>
+        {searchQuery.data?.results ? 'Search Results' : 'Trending Movies'}
+      </h2>
+
+      {trendingQuery.isLoading || searchQuery.isLoading ? (
+        <p className=' text-purple-100'>Loading...</p>
+      ) : trendingQuery.isError || searchQuery.isError ? (
+        <p className=' text-purple-100'>Error fetching data</p>
+      ) : (
+        <ul className=' grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+          {searchQuery.data?.results ? (
+            <>
+              {searchQuery.data?.results.map((result) => (
+                <MovieCard key={result.id} movie={result} />
+              ))}
+            </>
+          ) : (
+            <>
+              {trendingQuery.data?.results.map((result) => (
+                <MovieCard key={result.id} movie={result} />
+              ))}
+            </>
+          )}
+        </ul>
+      )}
+    </body>
   );
 }
 
