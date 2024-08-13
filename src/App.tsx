@@ -19,7 +19,7 @@ function App() {
   });
 
   return (
-    <body className=' min-h-screen flex  flex-col items-center justify-center p-8 bg-gradient-to-br from-blue-500 to-violet-800'>
+    <div className=' min-h-screen flex  flex-col items-center justify-center p-8 bg-gradient-to-br from-blue-500 to-violet-800'>
       <h1 className='text-7xl font-black text-white/50 tracking-widest mb-10 '>
         FLicK PicK
       </h1>
@@ -69,7 +69,7 @@ function App() {
           )}
         </ul>
       )}
-    </body>
+    </div>
   );
 }
 

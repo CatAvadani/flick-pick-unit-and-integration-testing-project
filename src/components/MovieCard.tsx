@@ -1,18 +1,11 @@
 import { ResultItem } from '../data/dataResponse';
+import { truncateText } from '../utils/truncateText';
 
 type MovieCardProps = {
   movie: ResultItem;
 };
 
 function MovieCard({ movie }: MovieCardProps) {
-  const truncateText = (text: string, wordLimit: number) => {
-    const words = text.split(' ');
-    if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(' ') + '...';
-    }
-    return text;
-  };
-
   return (
     <div className='w-72 h-full bg-black/5 rounded-sm hover:opacity-70 transition-all'>
       <img
