@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ResultItem } from '../data/dataResponse';
 import { truncateText } from '../utils/truncateText';
 
@@ -17,7 +18,9 @@ function MovieCard({ movie }: MovieCardProps) {
         <h2 className='text-xl font-bold text-white'>{movie.title}</h2>
         <p className='text-white/50'>{truncateText(movie.overview, 10)} </p>
 
-        <p className=' text-amber-500 self-end'>Read more</p>
+        <Link to={`/movie/${movie.id}`} className=' text-amber-500 self-end'>
+          Read more
+        </Link>
       </div>
     </div>
   );
