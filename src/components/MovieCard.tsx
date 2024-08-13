@@ -17,7 +17,7 @@ function MovieCard({ movie }: MovieCardProps) {
         <h2 className='text-xl font-bold text-white'>{movie.title}</h2>
         <p className='text-white/50'>{truncateText(movie.overview, 10)} </p>
 
-        <p className=' text-yellow-500 self-end'>Read more</p>
+        <p className=' text-amber-500 self-end'>Read more</p>
       </div>
     </div>
   );

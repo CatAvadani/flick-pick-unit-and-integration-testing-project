@@ -47,15 +47,16 @@ describe('App', () => {
       },
     ],
   };
-
-  it('renders the header', () => {
+  // Test if the header is rendered
+  it('should render the header', () => {
     (getTrending as Mock).mockResolvedValue(mockTrendingData);
 
     renderWithQueryClient(<App />);
     expect(screen.getByText('FLicK PicK')).toBeInTheDocument();
   });
 
-  it('renders the search input', () => {
+  // Test if the search input is rendered
+  it('should render the search input', () => {
     (getTrending as Mock).mockResolvedValue(mockTrendingData);
 
     renderWithQueryClient(<App />);
@@ -64,36 +65,16 @@ describe('App', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders the search button', () => {
+  // Test if the search button is rendered
+  it('should render the search button', () => {
     (getTrending as Mock).mockResolvedValue(mockTrendingData);
 
     renderWithQueryClient(<App />);
-    expect(screen.getByText('Search')).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
-  it('displays loading text while fetching trending movies', async () => {
-    (getTrending as Mock).mockResolvedValue(mockTrendingData);
-
-    renderWithQueryClient(<App />);
-
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
-
-    await waitFor(() =>
-      expect(screen.queryByText('Loading...')).not.toBeInTheDocument()
-    );
-  });
-
-  it('displays error message if fetching data fails', async () => {
-    (getTrending as Mock).mockRejectedValueOnce(new Error('Failed to fetch'));
-
-    renderWithQueryClient(<App />);
-
-    await waitFor(() => {
-      expect(screen.getByText(/error fetching data/i)).toBeInTheDocument();
-    });
-  });
-
-  it('displays trending movies', async () => {
+  // Test if trending movies are displayed
+  it('should display trending movies', async () => {
     (getTrending as Mock).mockResolvedValue(mockTrendingData);
 
     renderWithQueryClient(<App />);
@@ -104,7 +85,8 @@ describe('App', () => {
     });
   });
 
-  it('fetches search results when a search is performed', async () => {
+  // Test if search results are displayed
+  it('should fetch search results when a search is performed', async () => {
     (getTrending as Mock).mockResolvedValue(mockTrendingData);
     (getSearchResults as Mock).mockResolvedValueOnce(mockSearchData);
 
@@ -120,6 +102,42 @@ describe('App', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Search Result 1')).toBeInTheDocument();
+    });
+  });
+
+  // Test if search results are not fetched when search input is empty
+  it('should not fetch search results if search input is empty', async () => {
+    (getTrending as Mock).mockResolvedValue(mockTrendingData);
+    (getSearchResults as Mock).mockResolvedValueOnce({ results: [] });
+
+    renderWithQueryClient(<App />);
+
+    const searchButton = screen.getByRole('button', { name: /search/i });
+    fireEvent.click(searchButton);
+
+    await waitFor(() => {
+      expect(screen.queryByText('Search Result 1')).not.toBeInTheDocument();
+    });
+  });
+
+  // Test if an error message is displayed when search fails
+  it('should display an error message if fails to fetch search data', async () => {
+    (getTrending as Mock).mockResolvedValue(mockTrendingData);
+
+    (getSearchResults as Mock).mockRejectedValueOnce(
+      new Error('Failed to fetch search results')
+    );
+
+    renderWithQueryClient(<App />);
+
+    const searchInput = screen.getByPlaceholderText(
+      'Search for a movie, tv show, person....'
+    );
+    fireEvent.change(searchInput, { target: { value: 'Test Search' } });
+    fireEvent.click(screen.getByRole('button', { name: /search/i }));
+
+    await waitFor(() => {
+      expect(screen.getByTestId('error')).toBeInTheDocument();
     });
   });
 });

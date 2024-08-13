@@ -51,7 +51,9 @@ function App() {
       {trendingQuery.isLoading || searchQuery.isLoading ? (
         <p className=' text-purple-100'>Loading...</p>
       ) : trendingQuery.isError || searchQuery.isError ? (
-        <p className=' text-purple-100'>Error fetching data</p>
+        <p data-testid='error' className=' text-purple-100'>
+          Error fetching data
+        </p>
       ) : (
         <ul className=' grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
           {searchQuery.data?.results ? (
