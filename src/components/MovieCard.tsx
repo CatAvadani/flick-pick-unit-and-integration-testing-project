@@ -1,3 +1,5 @@
+
+import { Link } from 'react-router-dom';
 import { ResultItem } from '../data/dataResponse';
 
 import { truncateText } from '../utils/truncateText';
