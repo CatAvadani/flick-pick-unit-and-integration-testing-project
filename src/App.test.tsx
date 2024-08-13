@@ -1,6 +1,8 @@
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, Mock, vi } from 'vitest';
+
 import App from './App';
 import { getSearchResults, getTrending } from './data/apiRequest';
 
@@ -139,5 +141,6 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.getByTestId('error')).toBeInTheDocument();
     });
+
   });
 });

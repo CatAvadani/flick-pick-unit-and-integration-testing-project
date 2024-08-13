@@ -19,7 +19,9 @@ function App() {
   });
 
   return (
+
     <div className=' min-h-screen flex  flex-col items-center justify-center p-8 bg-gradient-to-br from-blue-500 to-violet-800'>
+
       <h1 className='text-7xl font-black text-white/50 tracking-widest mb-10 '>
         FLicK PicK
       </h1>
@@ -51,9 +53,11 @@ function App() {
       {trendingQuery.isLoading || searchQuery.isLoading ? (
         <p className=' text-purple-100'>Loading...</p>
       ) : trendingQuery.isError || searchQuery.isError ? (
+
         <p data-testid='error' className=' text-purple-100'>
           Error fetching data
         </p>
+
       ) : (
         <ul className=' grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
           {searchQuery.data?.results ? (
@@ -71,7 +75,9 @@ function App() {
           )}
         </ul>
       )}
+
     </div>
+
   );
 }
 

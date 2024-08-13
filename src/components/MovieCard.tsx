@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { ResultItem } from '../data/dataResponse';
 import { truncateText } from '../utils/truncateText';
@@ -7,6 +8,8 @@ type MovieCardProps = {
 };
 
 function MovieCard({ movie }: MovieCardProps) {
+
+
   return (
     <div className='w-72 h-full bg-black/5 rounded-sm hover:opacity-70 transition-all'>
       <img
@@ -18,9 +21,11 @@ function MovieCard({ movie }: MovieCardProps) {
         <h2 className='text-xl font-bold text-white'>{movie.title}</h2>
         <p className='text-white/50'>{truncateText(movie.overview, 10)} </p>
 
+
         <Link to={`/movie/${movie.id}`} className=' text-amber-500 self-end'>
           Read more
         </Link>
+
       </div>
     </div>
   );
