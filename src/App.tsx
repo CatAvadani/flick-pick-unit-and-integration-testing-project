@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import FlipText from './components/FlipText';
 import MovieCard from './components/MovieCard';
 import { getSearchResults, getTrending } from './data/apiRequest';
 
@@ -19,12 +20,14 @@ function App() {
   });
 
   return (
-
     <div className=' min-h-screen flex  flex-col items-center justify-center p-8 bg-gradient-to-br from-blue-500 to-violet-800'>
-
-      <h1 className='text-7xl font-black text-white/50 tracking-widest mb-10 '>
+      {/* <h1 className='text-7xl font-black text-white/50 tracking-widest mb-10 '>
         FLicK PicK
-      </h1>
+      </h1> */}
+      <FlipText
+        className='text-7xl font-bold tracking-widest text-white/50 md:text-7xl md:leading-[5rem]'
+        word='FlicK Pick'
+      />
       <form
         className='flex items-center justify-center w-full max-w-sm mx-auto mt-4 mb-8'
         onSubmit={(e) => {
@@ -53,13 +56,11 @@ function App() {
       {trendingQuery.isLoading || searchQuery.isLoading ? (
         <p className=' text-purple-100'>Loading...</p>
       ) : trendingQuery.isError || searchQuery.isError ? (
-
         <p data-testid='error' className=' text-purple-100'>
           Error fetching data
         </p>
-
       ) : (
-        <ul className=' grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+        <ul className=' grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
           {searchQuery.data?.results ? (
             <>
               {searchQuery.data?.results.map((result) => (
@@ -75,10 +76,7 @@ function App() {
           )}
         </ul>
       )}
-
     </div>
-
-
   );
 }
 

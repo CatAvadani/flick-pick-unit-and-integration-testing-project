@@ -1,8 +1,8 @@
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, Mock, vi } from 'vitest';
 
+import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 import { getSearchResults, getTrending } from './data/apiRequest';
 
@@ -17,7 +17,9 @@ const queryClient = new QueryClient();
 describe('App', () => {
   const renderWithQueryClient = (ui: React.ReactNode) => {
     return render(
-      <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
+      <MemoryRouter>
+        <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
+      </MemoryRouter>
     );
   };
 
@@ -49,12 +51,13 @@ describe('App', () => {
       },
     ],
   };
+
   // Test if the header is rendered
   it('should render the header', () => {
     (getTrending as Mock).mockResolvedValue(mockTrendingData);
 
     renderWithQueryClient(<App />);
-    expect(screen.getByText('FLicK PicK')).toBeInTheDocument();
+    expect(screen.getByTestId('header')).toBeInTheDocument();
   });
 
   // Test if the search input is rendered
@@ -62,9 +65,14 @@ describe('App', () => {
     (getTrending as Mock).mockResolvedValue(mockTrendingData);
 
     renderWithQueryClient(<App />);
+
     expect(
       screen.getByPlaceholderText('Search for a movie, tv show, person....')
     ).toBeInTheDocument();
+
+    expect(
+      screen.getByPlaceholderText('Search for a movie, tv show, person....')
+    ).toHaveAttribute('placeholder', 'Search for a movie, tv show, person....');
   });
 
   // Test if the search button is rendered
@@ -73,6 +81,7 @@ describe('App', () => {
 
     renderWithQueryClient(<App />);
     expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(screen.getByRole('button')).toHaveTextContent('Search');
   });
 
   // Test if trending movies are displayed
@@ -82,7 +91,9 @@ describe('App', () => {
     renderWithQueryClient(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText('Trending Movie 1')).toBeInTheDocument();
+      expect(screen.getByText('Trending Movie 1')).toHaveTextContent(
+        'Trending Movie 1'
+      );
       expect(screen.getByText('Trending Movie 2')).toBeInTheDocument();
     });
   });
@@ -141,6 +152,5 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.getByTestId('error')).toBeInTheDocument();
     });
-
   });
 });

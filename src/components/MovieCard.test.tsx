@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import { ResultItem } from '../data/dataResponse';
-import { truncateText } from '../utils/truncateText';
 import MovieCard from './MovieCard';
 
 describe('MovieCard Component', () => {
@@ -14,26 +14,32 @@ describe('MovieCard Component', () => {
   };
 
   it('should render movie title', () => {
-    render(<MovieCard movie={movie} />);
+    render(
+      <MemoryRouter>
+        <MovieCard movie={movie} />
+      </MemoryRouter>
+    );
     expect(screen.getByText('Game of Thrones')).toBeInTheDocument();
   });
 
   it('should render movie poster with correct src', () => {
-    render(<MovieCard movie={movie} />);
+    render(
+      <MemoryRouter>
+        <MovieCard movie={movie} />
+      </MemoryRouter>
+    );
     const img = screen.getByAltText('Game of Thrones') as HTMLImageElement;
     expect(img.src).toBe('https://image.tmdb.org/t/p/w500/poster_title.jpg');
   });
 
-  it('should truncate the text correctly', () => {
-    const text =
-      'Seven noble families fight for control of the mythical land of Westeros.';
-    const result = truncateText(text, 7);
-    expect(result).toBe('Seven noble families fight for control of...');
-  });
+  it('should have a link that navigates to the correct movie details page', () => {
+    render(
+      <MemoryRouter>
+        <MovieCard movie={movie} />
+      </MemoryRouter>
+    );
 
-  it('should return full text if under word limit', () => {
-    const text = 'A short sentence.';
-    const result = truncateText(text, 10);
-    expect(result).toBe('A short sentence.');
+    const link = screen.getByRole('link') as HTMLAnchorElement;
+    expect(link).toHaveAttribute('href', '/movie/1');
   });
 });
