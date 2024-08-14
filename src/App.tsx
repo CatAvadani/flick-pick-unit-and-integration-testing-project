@@ -21,12 +21,9 @@ function App() {
 
   return (
     <div className=' min-h-screen flex  flex-col items-center justify-center p-8 bg-gradient-to-br from-blue-500 to-violet-800'>
-      {/* <h1 className='text-7xl font-black text-white/50 tracking-widest mb-10 '>
-        FLicK PicK
-      </h1> */}
       <FlipText
-        className='text-7xl font-bold tracking-widest text-white/50 md:text-7xl md:leading-[5rem]'
-        word='FlicK Pick'
+        className='text-7xl font-bold tracking-[-0.1em] text-white/50 md:text-7xl md:leading-[5rem]'
+        word='FlicK  PicK'
       />
       <form
         className='flex items-center justify-center w-full max-w-sm mx-auto mt-4 mb-8'

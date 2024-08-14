@@ -1,4 +1,4 @@
-import { TrendingResults } from './dataResponse';
+import { ResultItem, TrendingResults } from './dataResponse';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -26,7 +26,7 @@ export const getSearchResults = async (
   return data;
 };
 
-export const getMovieDetails = async (id: number) => {
+export const getMovieDetails = async (id: number): Promise<ResultItem> => {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${id}?language=en-US&api_key=${API_KEY}`
   );
