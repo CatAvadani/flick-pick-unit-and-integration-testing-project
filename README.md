@@ -1,50 +1,67 @@
-# React + TypeScript + Vite
+## Flick Pick
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div style="display: flex; flex-wrap: wrap; gap: 20; justify-content: space-around; " >
+  <img src="public/home-img.png" alt="Home Page" width="200">
+  <img src="public/movie-details.png" alt="Movie Details Page" width="600">
+ </div>
 
-Currently, two official plugins are available:
+Flick Pick is a web application that allows users to search for movies, TV shows, and other media content. It provides trending movies, search functionality, and detailed views of individual movies. The project is built with React, using TanStack Query for data fetching and caching, and react-router-dom for routing.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Features
 
-## Expanding the ESLint configuration
+**Trending Movies**: View the latest trending movies.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+**Search**: Search for movies, TV shows, and people.
 
-- Configure the top-level `parserOptions` property like this:
+**Movie Details**: View detailed information about a selected movie.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Technologies Used
+
+**React**
+
+**TypeScript**
+
+**TanStack Query**
+
+**React Router**
+
+**Vitest**
+
+**Test Library**
+
+**Tailwind CSS**
+
+### Installation
+
+Follow these steps to set up the project locally:
+
+1. **Clone the repository**
+    ```bash
+    git clone (https://github.com/CatAvadani/flick-pick-unit-and-integration-testing-project.git)
+    cd flick-pick-unit-and-integration-testing-project
+    ```
+
+2. **Install dependencies**
+    ```bash
+    npm install
+    ```
+
+3. **Start server**
+    ```bash
+    npm start
+    ```
+
+### Running Tests
+
+Flick Pick includes a comprehensive test suite using Vitest. 
+
+To run the tests:
+
+```bash
+npm test
 ```
+This will run the test suite and provide a coverage report.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+
