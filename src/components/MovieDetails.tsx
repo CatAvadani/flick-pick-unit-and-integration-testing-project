@@ -14,7 +14,10 @@ function MovieDetails() {
   const movie = getDetails.data;
 
   return (
-    <div className='w-full h-screen p-16  bg-gradient-to-br from-blue-500 to-violet-800 rounded-sm flex justify-center items-center gap-10'>
+    <div
+      data-testid='movie-details'
+      className='w-full h-screen p-16  bg-gradient-to-br from-blue-500 to-violet-800 rounded-sm flex justify-center items-center gap-10'
+    >
       <img
         className='w-[35vw] h-[650px] object-cover rounded-lg hover:opacity-80 transition-all'
         src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
