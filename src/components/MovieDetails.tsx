@@ -21,17 +21,19 @@ function MovieDetails() {
         alt={movie?.title}
       />
       <div className=' flex flex-col gap-10'>
-        <h1 className='text-5xl font-bold text-white mb-10'>{movie?.title}</h1>
+        <h1 data-testid='title' className='text-5xl font-bold text-white mb-10'>
+          {movie?.title}
+        </h1>
         <p className='text-white/50 w-[50vw] text-lg'>{movie?.overview}</p>
         <div className='flex gap-4 mt-4'>
           <p className='text-white/50'>Rating: {movie?.vote_average}</p>
           <p className='text-white/50'>Release Date: {movie?.release_date}</p>
         </div>
-        <button className='px-4 py-2 text-white bg-amber-500 rounded-full shadow-md'>
+        <button className='px-4 py-2 text-white bg-yellow-500 rounded-full shadow-md'>
           Watch Trailer
         </button>
         <Link to='/'>
-          <ArrowUturnLeftIcon className='h-10 w-10 text-amber-500 hover:scale-110 transition-all ' />
+          <ArrowUturnLeftIcon className='h-10 w-10 text-white hover:scale-110 transition-all ' />
           <p className=' text-white/50 mt-2 text-sm'>Go Back</p>
         </Link>
       </div>
