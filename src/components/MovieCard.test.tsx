@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { ResultItem } from '../data/dataResponse';
 import MovieCard from './MovieCard';
 
-describe('MovieCard Component', () => {
+describe('MovieCard', () => {
   const movie: ResultItem = {
     id: 1,
     title: 'Game of Thrones',
