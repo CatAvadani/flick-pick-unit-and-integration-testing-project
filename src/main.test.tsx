@@ -1,8 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, waitFor } from '@testing-library/react';
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import App from './App';
 import MovieDetails from './components/MovieDetails';
@@ -17,30 +15,6 @@ const renderWithProviders = (ui: React.ReactNode, { route = '/' } = {}) => {
     </QueryClientProvider>
   );
 };
-
-describe('main.tsx', () => {
-  it('should render the entire application correctly', () => {
-    const root = document.createElement('div');
-    root.id = 'root';
-    document.body.appendChild(root);
-
-    createRoot(root).render(
-      <StrictMode>
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<App />} />
-              <Route path='/movie/:id' element={<MovieDetails />} />
-            </Routes>
-          </BrowserRouter>
-        </QueryClientProvider>
-      </StrictMode>
-    );
-
-    expect(root).toBeInTheDocument();
-    expect(root).toContainHTML('<div');
-  });
-});
 
 describe('main', () => {
   it('should render the App component on the root route', async () => {

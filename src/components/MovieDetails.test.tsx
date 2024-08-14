@@ -23,7 +23,7 @@ const mockMovieDetails = {
   release_date: '2010-07-16',
 };
 
-describe('MovieDetails Component', () => {
+describe('MovieDetails', () => {
   const renderWithQueryClient = (ui: React.ReactNode) => {
     return render(
       <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
