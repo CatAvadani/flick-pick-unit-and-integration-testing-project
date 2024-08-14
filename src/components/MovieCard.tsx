@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ResultItem } from '../data/dataResponse';
-
 import { truncateText } from '../utils/truncateText';
 
 type MovieCardProps = {
@@ -20,10 +19,10 @@ function MovieCard({ movie }: MovieCardProps) {
           <h2 className='text-xl font-bold text-white'>{movie.title}</h2>
           <p className='text-white/50'>
             {truncateText(movie.overview, 10)}{' '}
-            <span className=' text-amber-400'>Read more &gt;&gt;</span>{' '}
+            <span className=' text-amber-400'>Read more &gt;&gt;</span>
           </p>
         </div>
-      </div>{' '}
+      </div>
     </Link>
   );
 }
