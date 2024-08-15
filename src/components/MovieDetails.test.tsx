@@ -4,6 +4,8 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { describe, expect, it, Mock, vi } from 'vitest';
 import App from '../App';
 import { getMovieDetails } from '../data/apiRequest';
+import { ResultItem } from '../data/dataResponse';
+import MovieCard from './MovieCard';
 import MovieDetails from './MovieDetails';
 
 // Mock the API request
@@ -13,7 +15,7 @@ vi.mock('../data/apiRequest', () => ({
 
 const queryClient = new QueryClient();
 
-const mockMovieDetails = {
+const movie: ResultItem = {
   id: 1,
   title: 'Game of Thrones',
   overview:
@@ -31,7 +33,7 @@ describe('MovieDetails', () => {
   };
 
   it('should render movie details correctly', async () => {
-    (getMovieDetails as Mock).mockResolvedValue(mockMovieDetails);
+    (getMovieDetails as Mock).mockResolvedValue(movie);
 
     renderWithQueryClient(
       <MemoryRouter initialEntries={['/movie/1']}>
@@ -54,8 +56,23 @@ describe('MovieDetails', () => {
     expect(screen.getByText('Release Date: 2010-07-16')).toBeInTheDocument();
   });
 
+  it('should display a placeholder if the image is missing', () => {
+    const movieWithoutImage: ResultItem = {
+      ...movie,
+      poster_path: undefined,
+    };
+
+    render(
+      <MemoryRouter>
+        <MovieCard movie={movieWithoutImage} />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('No Image Available')).toBeInTheDocument();
+  });
+
   it('should navigate back when "Go Back" link is clicked', async () => {
-    (getMovieDetails as Mock).mockResolvedValue(mockMovieDetails);
+    (getMovieDetails as Mock).mockResolvedValue(movie);
 
     renderWithQueryClient(
       <MemoryRouter initialEntries={['/movie/1']}>

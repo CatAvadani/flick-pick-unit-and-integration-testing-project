@@ -18,11 +18,17 @@ function MovieDetails() {
       data-testid='movie-details'
       className='w-full h-screen p-16  bg-gradient-to-br from-blue-500 to-violet-800 rounded-sm flex justify-center items-center gap-10'
     >
-      <img
-        className='w-[35vw] h-[650px] object-cover rounded-lg hover:opacity-80 transition-all'
-        src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
-        alt={movie?.title}
-      />
+      {movie?.poster_path ? (
+        <img
+          className='w-[35vw] h-[650px] object-cover rounded-lg hover:opacity-80 transition-all'
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          alt={movie.title}
+        />
+      ) : (
+        <div className='w-[35vw] h-[650px] flex items-center justify-center bg-black/50 rounded-lg hover:opacity-80'>
+          <p className='text-white text-xl'>No Image Available</p>
+        </div>
+      )}
       <div className=' flex flex-col gap-10'>
         <h1 data-testid='title' className='text-5xl font-bold text-white mb-10'>
           {movie?.title}
