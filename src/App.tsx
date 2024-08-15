@@ -23,7 +23,7 @@ function App() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!searchString.trim()) {
-      setError('Search query cannot be empty.'); // Set error message
+      setError('Search query cannot be empty.');
       return;
     }
     setError(null);

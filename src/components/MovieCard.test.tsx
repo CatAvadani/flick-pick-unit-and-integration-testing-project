@@ -32,6 +32,21 @@ describe('MovieCard', () => {
     expect(img.src).toBe('https://image.tmdb.org/t/p/w500/poster_title.jpg');
   });
 
+  it('should display a placeholder if the image is missing', () => {
+    const movieWithoutImage: ResultItem = {
+      ...movie,
+      poster_path: undefined,
+    };
+
+    render(
+      <MemoryRouter>
+        <MovieCard movie={movieWithoutImage} />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('No Image Available')).toBeInTheDocument();
+  });
+
   it('should have a link that navigates to the correct movie details page', () => {
     render(
       <MemoryRouter>
