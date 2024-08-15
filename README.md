@@ -5,7 +5,8 @@
   <img src="public/movie-details.png" alt="Movie Details Page" width="600">
  </div>
 
-Flick Pick is a web application that allows users to search for movies, TV shows, and other media content. It provides trending movies, search functionality, and detailed views of individual movies. The project is built with React, using TanStack Query for data fetching and caching, and react-router-dom for routing.
+Flick Pick is a web application that allows users to search for movies, TV shows, and other media content. It provides trending movies, search functionality, and detailed views of individual movies. 
+The primary objective of this project was to practice and enhance skills in unit and integration testing within a React application. By implementing robust tests, the project aimed to ensure the reliability, correctness, and maintainability of the codebase.
 
 ### Features
 
@@ -48,7 +49,7 @@ Follow these steps to set up the project locally:
 
 3. **Start server**
     ```bash
-    npm start
+    npm run dev
     ```
 
 ### Running Tests
