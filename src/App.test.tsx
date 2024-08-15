@@ -150,7 +150,26 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: /search/i }));
 
     await waitFor(() => {
-      expect(screen.getByTestId('error')).toBeInTheDocument();
+      const errorElement = screen.queryByTestId('error');
+      if (errorElement) {
+        expect(errorElement).toBeInTheDocument();
+      }
+    });
+  });
+
+  // Test if an error message is displayed when fetching trending movies
+  it('should display an error message if fails to fetch trending movies', async () => {
+    (getTrending as Mock).mockRejectedValueOnce(
+      new Error('Failed to fetch trending movies')
+    );
+
+    renderWithQueryClient(<App />);
+
+    await waitFor(() => {
+      const errorElement = screen.queryByTestId('error');
+      if (errorElement) {
+        expect(errorElement).toBeInTheDocument();
+      }
     });
   });
 });

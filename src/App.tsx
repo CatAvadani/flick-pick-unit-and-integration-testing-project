@@ -16,7 +16,7 @@ function App() {
   const searchQuery = useQuery({
     queryKey: ['search', searchString],
     queryFn: () => getSearchResults(searchString),
-    enabled: !!searchString,
+    enabled: false,
   });
 
   return (
@@ -51,26 +51,20 @@ function App() {
       </h2>
 
       {trendingQuery.isLoading || searchQuery.isLoading ? (
-        <p className=' text-purple-100'>Loading...</p>
+        <p className='text-purple-100'>Loading...</p>
       ) : trendingQuery.isError || searchQuery.isError ? (
-        <p data-testid='error' className=' text-purple-100'>
+        <p data-testid='error' className='text-purple-100'>
           Error fetching data
         </p>
       ) : (
-        <ul className=' grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-          {searchQuery.data?.results ? (
-            <>
-              {searchQuery.data?.results.map((result) => (
+        <ul className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+          {searchQuery.data?.results
+            ? searchQuery.data.results.map((result) => (
+                <MovieCard key={result.id} movie={result} />
+              ))
+            : trendingQuery.data?.results.map((result) => (
                 <MovieCard key={result.id} movie={result} />
               ))}
-            </>
-          ) : (
-            <>
-              {trendingQuery.data?.results.map((result) => (
-                <MovieCard key={result.id} movie={result} />
-              ))}
-            </>
-          )}
         </ul>
       )}
     </div>
