@@ -125,7 +125,7 @@ describe('App', () => {
 
     renderWithQueryClient(<App />);
 
-    const searchButton = screen.getByRole('button', { name: /search/i });
+    const searchButton = screen.getByText('Search');
     fireEvent.click(searchButton);
 
     await waitFor(() => {
@@ -146,8 +146,9 @@ describe('App', () => {
     const searchInput = screen.getByPlaceholderText(
       'Search for a movie, tv show, person....'
     );
+    const searchButton = screen.getByText('Search');
     fireEvent.change(searchInput, { target: { value: 'Test Search' } });
-    fireEvent.click(screen.getByRole('button', { name: /search/i }));
+    fireEvent.click(searchButton);
 
     await waitFor(() => {
       const errorElement = screen.queryByTestId('error');
@@ -170,6 +171,21 @@ describe('App', () => {
       if (errorElement) {
         expect(errorElement).toBeInTheDocument();
       }
+    });
+  });
+
+  it('should not perform search when search string is empty', async () => {
+    (getTrending as Mock).mockResolvedValue(mockTrendingData);
+
+    renderWithQueryClient(<App />);
+
+    const searchButton = screen.getByText('Search');
+    fireEvent.click(searchButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Search query cannot be empty.')
+      ).toBeInTheDocument();
     });
   });
 });
